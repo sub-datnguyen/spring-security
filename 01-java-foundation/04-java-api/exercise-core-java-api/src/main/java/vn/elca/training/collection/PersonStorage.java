@@ -12,14 +12,13 @@ import vn.elca.training.helper.Person;
  */
 public class PersonStorage {
 
-    private Map<String, Person> persons = new ConcurrentHashMap<>();
-    private AtomicInteger createCount = new AtomicInteger(0);
+    private Map<String, Person> persons = new HashMap<>();
 
     public Person getOrCreate(String name, String description) {
         if (persons.containsKey(name)) {
             return persons.get(name);
         } else {
-            createCount.addAndGet(1);
+            System.out.println("Person with name " + name + " created");
             Person person = new Person(name);
             person.setDescription(description);
             persons.put(name, person);
@@ -27,7 +26,4 @@ public class PersonStorage {
         }
     }
 
-    public AtomicInteger getCreateCount() {
-        return createCount;
-    }
 }

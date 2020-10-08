@@ -16,13 +16,14 @@ public class CollectionExercise {
     public static void main(String[] args) throws InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(4);
         PersonStorage personStorage = new PersonStorage();
-        for (int i = 0; i < 100; i++) {
+        // Each person with name should be created only once in PersonStorage
+        // This code is creating duplicated Person with name "Nguyen"
+        // Improve this code so that the person is created only once. Subsequent access to PersonStorage should return the created Person
+        for (int i = 0; i < 5; i++) {
             executorService.execute(() -> personStorage.getOrCreate("Nguyen", "Employee"));
         }
-        executorService.awaitTermination(5, TimeUnit.SECONDS);
+        executorService.awaitTermination(1, TimeUnit.SECONDS);
         executorService.shutdown();
-        // Eliminate the duplicated person creation
-        System.out.println("Duplicated person creation count: " + personStorage.getCreateCount());
     }
 
 }
