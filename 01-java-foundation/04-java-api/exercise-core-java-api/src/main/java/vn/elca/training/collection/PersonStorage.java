@@ -2,9 +2,6 @@ package vn.elca.training.collection;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.regex.Pattern;
 import vn.elca.training.helper.Person;
 
 /**

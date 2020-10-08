@@ -1,7 +1,6 @@
 package vn.elca.training.equality;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 import org.apache.commons.lang3.time.StopWatch;
 import vn.elca.training.helper.Person;
