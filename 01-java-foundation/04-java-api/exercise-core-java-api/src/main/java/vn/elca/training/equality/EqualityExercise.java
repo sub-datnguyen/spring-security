@@ -1,16 +1,4 @@
-package vn.elca.training.equality;/*
- * Project: EGDD
- *
- * Copyright 2020 by Canton de Vaud
- * All rights reserved.
- *
- *
- * This software is the confidential and proprietary information
- * of Canton de Vaud. ("Confidential Information"). You
- * shall not disclose such Confidential Information and shall
- * use it only in accordance with the terms of the license
- * agreement you entered into with Canton de Vaud.
- */
+package vn.elca.training.equality;
 
 import java.util.HashSet;
 import java.util.Objects;
