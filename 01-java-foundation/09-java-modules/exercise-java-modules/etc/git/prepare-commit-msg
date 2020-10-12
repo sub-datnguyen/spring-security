@@ -1,0 +1,20 @@
+#!/bin/sh
+BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+BRANCH_POST="$(echo $BRANCH_NAME | cut -d '/' -f2 | cut -d '-' -f 1-2)"
+COMMIT_MSG=$(cat $1)
+if [ -n "$BRANCH_NAME" ] && [[ "$BRANCH_NAME" == feature/* ]] && [[ ! $COMMIT_MSG =~ $BRANCH_POST.* ]]
+then
+  echo "[$(echo $BRANCH_POST)] $COMMIT_MSG" > $1
+fi
+if [ -n "$BRANCH_NAME" ] && [[ "$BRANCH_NAME" == bugfix/* ]] && [[ ! $COMMIT_MSG =~ $BRANCH_POST.* ]]
+then
+  echo "[$(echo $BRANCH_POST)] $COMMIT_MSG" > $1
+fi
+if [ -n "$BRANCH_NAME" ] && [[ "$BRANCH_NAME" == release/* ]] && [[ ! $COMMIT_MSG =~ $BRANCH_POST.* ]]
+then
+  echo "[release $(echo $BRANCH_POST)] $COMMIT_MSG" > $1
+fi
+if [ -n "$BRANCH_NAME" ] && [[ "$BRANCH_NAME" == hotfix/* ]] && [[ ! $COMMIT_MSG =~ $BRANCH_POST.* ]]
+then
+  echo "[hotfix $(echo $BRANCH_POST)] $COMMIT_MSG" > $1
+fi
