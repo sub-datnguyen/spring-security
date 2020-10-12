@@ -1,5 +1,3 @@
-
-
 SET PROJECT_HOME=%cd%\..\..
 
 SET JAVA_HOME=D:\tools\adopt-jdk
@@ -9,5 +7,4 @@ SET PATH=%TOOLS_HOME%;%M2_HOME%\bin;%JAVA_HOME%\bin;%PATH%
 
 SET LOCATION=vn
 SET MVN_PROFILE=%LOCATION%-dev
-
 
