@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\boost-up-program-hands-on-labs\\dotnet\\01-dotnet-web-advanced\\MusicStore\\MusicStore.csproj": {}
+    "E:\\Projects\\elca-reski\\ASP.NET MVC Core Final Excersise\\01-dotnet-web-advanced\\MusicStore\\MusicStore.csproj": {}
   },
   "projects": {
-    "E:\\boost-up-program-hands-on-labs\\dotnet\\01-dotnet-web-advanced\\MusicStore\\MusicStore.csproj": {
+    "E:\\Projects\\elca-reski\\ASP.NET MVC Core Final Excersise\\01-dotnet-web-advanced\\MusicStore\\MusicStore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\boost-up-program-hands-on-labs\\dotnet\\01-dotnet-web-advanced\\MusicStore\\MusicStore.csproj",
+        "projectUniqueName": "E:\\Projects\\elca-reski\\ASP.NET MVC Core Final Excersise\\01-dotnet-web-advanced\\MusicStore\\MusicStore.csproj",
         "projectName": "MusicStore",
-        "projectPath": "E:\\boost-up-program-hands-on-labs\\dotnet\\01-dotnet-web-advanced\\MusicStore\\MusicStore.csproj",
+        "projectPath": "E:\\Projects\\elca-reski\\ASP.NET MVC Core Final Excersise\\01-dotnet-web-advanced\\MusicStore\\MusicStore.csproj",
         "packagesPath": "C:\\Users\\mhl\\.nuget\\packages\\",
-        "outputPath": "E:\\boost-up-program-hands-on-labs\\dotnet\\01-dotnet-web-advanced\\MusicStore\\obj\\",
+        "outputPath": "E:\\Projects\\elca-reski\\ASP.NET MVC Core Final Excersise\\01-dotnet-web-advanced\\MusicStore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -82,6 +82,10 @@
             "Microsoft.IdentityModel.Protocols.OpenIdConnect": {
               "target": "Package",
               "version": "[6.8.0, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[3.1.4, )"
             }
           },
           "imports": [
