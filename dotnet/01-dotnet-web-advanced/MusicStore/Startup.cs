@@ -17,8 +17,7 @@ using MusicStore.Services;
 namespace MusicStore
 {
     public class Startup
-    {
-        private readonly Platform _platform;
+    {       
 
         public Startup(IWebHostEnvironment hostingEnvironment)
         {
@@ -31,8 +30,7 @@ namespace MusicStore
                 //All environment variables in the process's context flow in as configuration values.
                 .AddEnvironmentVariables();
 
-            Configuration = builder.Build();
-            _platform = new Platform();
+            Configuration = builder.Build();           
         }
 
         public IConfiguration Configuration { get; private set; }
