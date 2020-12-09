@@ -77,8 +77,6 @@ namespace MusicStore
             // Add session related services.
             services.AddSession();
 
-            // Add the system clock service
-            services.AddSingleton<ISystemClock, SystemClock>();
             //ada custom filter
             services.AddScoped<AuditTrailsActionFilter>();
             services.AddScoped<OrderActionFilter>();
