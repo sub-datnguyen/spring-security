@@ -70,7 +70,7 @@ namespace MusicStore.Controllers
             // the albums with the highest count
 
             return dbContext.Albums
-                .OrderByDescending(a => a.OrderDetails.Count)
+                .OrderByDescending(a => a.Created)
                 .Take(count)
                 .ToListAsync();
         }
