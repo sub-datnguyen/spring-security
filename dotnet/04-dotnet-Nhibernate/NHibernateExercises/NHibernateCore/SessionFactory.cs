@@ -6,7 +6,7 @@ using NHibernate.Driver;
 using NHibernate.Mapping.ByCode;
 using System;
 
-namespace NHibernateExercises
+namespace NHibernateCore
 {
     public class SessionFactory
     {

@@ -2,7 +2,7 @@
 using System;
 using System.Transactions;
 
-namespace NHibernateExercises
+namespace NHibernateCore
 {
     public enum UnitOfWorkScopeOption
     {

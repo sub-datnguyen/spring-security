@@ -1,7 +1,7 @@
 ﻿using NHibernate;
 using System;
 
-namespace NHibernateExercises
+namespace NHibernateCore
 {
     public interface IUnitOfWorkScope : IDisposable
     {

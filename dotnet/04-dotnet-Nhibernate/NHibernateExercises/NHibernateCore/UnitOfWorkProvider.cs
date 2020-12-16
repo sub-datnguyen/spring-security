@@ -3,7 +3,7 @@ using NHibernate;
 using System;
 using System.Transactions;
 
-namespace NHibernateExercises
+namespace NHibernateCore
 {
     public class UnitOfWorkProvider : IUnitOfWorkProvider
     {

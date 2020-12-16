@@ -3,7 +3,7 @@ using NHibernate;
 using Ninject;
 using Ninject.Activation;
 
-namespace NHibernateExercises
+namespace NHibernateCore
 {
     public class SessionFactoryProvider<T> : Provider<ISessionFactory> where T : SessionFactory, new()
     {
