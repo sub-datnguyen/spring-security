@@ -1,85 +1,71 @@
 ﻿using log4net;
+using log4net.Core;
 using NHibernate;
 using System;
-using System.Transactions;
+using System.Data;
 
 namespace NHibernateCore
 {
     public class UnitOfWorkProvider : IUnitOfWorkProvider
     {
-        public const string BUSINESS_SERVER_TRACE = "BusinessServerTrace";
-        private readonly ISessionFactory m_sessionFactory;
-        private static readonly ILog s_log = LogManager.GetLogger(BUSINESS_SERVER_TRACE);
+        private readonly ISessionFactory _sessionFactory;
+        private readonly IInterceptor _interceptor;
 
-        public UnitOfWorkProvider(ISessionFactory sessionFactory)
+        /// <summary>
+        /// Creates a new <see cref="UnitOfWorkProvider"/>.
+        /// </summary>
+        /// <param name="sessionFactory">The <see cref="ISessionFactory"/> used to create sessions.</param>
+        /// <param name="logger">The logger that is used for logging, defaults to <see cref="NullLogger"/>.</param>
+        /// <param name="interceptor">
+        ///     The interceptor that is used for sessions. Defaults to <see cref="NullInterceptor"/> which means
+        ///     that the interceptor from the <see cref="ISessionFactory"/> is used.
+        /// </param>
+        public UnitOfWorkProvider(ISessionFactory sessionFactory, IInterceptor interceptor = null)
         {
-            m_sessionFactory = sessionFactory;
+            _sessionFactory = sessionFactory ?? throw new NullReferenceException("SessionFactory cannot be null");
+            _interceptor = interceptor ?? new NullInterceptor();
         }
 
-        public UnitOfWorkScope Provide()
+        public IUnitOfWorkScope Provide()
         {
-            s_log.Debug("Provide");
             return Provide(DetermineScopeOption());
         }
 
-        public UnitOfWorkScope Provide(IsolationLevel isolationLevel)
+        public IUnitOfWorkScope Provide(IsolationLevel isolationLevel)
         {
-            s_log.Debug($"Provide with isolation level {isolationLevel}");
             return Provide(DetermineScopeOption(), isolationLevel);
         }
 
-        private UnitOfWorkScopeOption DetermineScopeOption()
+        public IUnitOfWorkScope Provide(UnitOfWorkScopeOption scopeOption)
         {
-            var scopeOption = UnitOfWorkScopeOption.Required;
-            if (IsSessionFactoryOfAmbientScopeDifferent())
-            {
-                s_log.Info("using new unit of work, because ambient unit of work uses different session factory.");
-                scopeOption = UnitOfWorkScopeOption.RequiresNew;
-            }
-            return scopeOption;
-        }
-
-        public UnitOfWorkScope Provide(UnitOfWorkScopeOption scopeOption)
-        {
-            s_log.Debug($"Provide with scopeOption = {scopeOption}");
             return Provide(scopeOption, IsolationLevel.ReadCommitted);
         }
 
-        public UnitOfWorkScope Provide(UnitOfWorkScopeOption scopeOption, IsolationLevel isolationLevel)
+        public IUnitOfWorkScope Provide(UnitOfWorkScopeOption scopeOption, IsolationLevel isolationLevel)
         {
-            s_log.Debug($"Provide with scopeOption = {scopeOption}, isolationLevel = {isolationLevel}");
             if (IsSessionFactoryOfAmbientScopeDifferent() && scopeOption == UnitOfWorkScopeOption.Required)
             {
-                s_log.Error("ambient unit of work had different session factory then unit of work provider.");
-                throw new ArgumentException(
-                    "ambient unit of work has incompatible session, please use RequiresNew to create a new Unit of Work.");
+                throw new ArgumentException("Ambient unit of work has incompatible session, please use RequiresNew to create a new unit of work.");
             }
-            return new UnitOfWorkScope(scopeOption, isolationLevel, m_sessionFactory);
+            return new UnitOfWorkScope(scopeOption, isolationLevel, _sessionFactory, _interceptor);
         }
 
-        private bool IsSessionFactoryOfAmbientScopeDifferent()
+        public void Perform(Action action)
         {
-            return (UnitOfWorkScope.Current != null && UnitOfWorkScope.Current.Session != null &&
-                    m_sessionFactory != UnitOfWorkScope.Current.Session.SessionFactory);
+            Perform(action, DetermineScopeOption(), IsolationLevel.ReadCommitted);
         }
 
-        public void PerformActionInUnitOfWork(Action action)
+        public void Perform(Action action, UnitOfWorkScopeOption scopeOption)
         {
-            PerformActionInUnitOfWork(action, DetermineScopeOption(), IsolationLevel.ReadCommitted);
+            Perform(action, scopeOption, IsolationLevel.ReadCommitted);
         }
 
-        public void PerformActionInUnitOfWork(Action action, UnitOfWorkScopeOption scopeOption)
+        public void Perform(Action action, IsolationLevel isolationLevel)
         {
-            PerformActionInUnitOfWork(action, scopeOption, IsolationLevel.ReadCommitted);
+            Perform(action, DetermineScopeOption(), isolationLevel);
         }
 
-        public void PerformActionInUnitOfWork(Action action, IsolationLevel isolationLevel)
-        {
-            PerformActionInUnitOfWork(action, DetermineScopeOption(), isolationLevel);
-        }
-
-        public void PerformActionInUnitOfWork(Action action, UnitOfWorkScopeOption scopeOption,
-            IsolationLevel isolationLevel)
+        public void Perform(Action action, UnitOfWorkScopeOption scopeOption, IsolationLevel isolationLevel)
         {
             using (var scope = Provide(scopeOption, isolationLevel))
             {
@@ -88,18 +74,22 @@ namespace NHibernateCore
             }
         }
 
-        public T PerformActionInUnitOfWork<T>(Func<T> action)
+        public T Perform<T>(Func<T> action)
         {
-            return PerformActionInUnitOfWork(action, DetermineScopeOption(), IsolationLevel.ReadCommitted);
+            return Perform(action, DetermineScopeOption(), IsolationLevel.ReadCommitted);
         }
 
-        public T PerformActionInUnitOfWork<T>(Func<T> action, UnitOfWorkScopeOption scopeOption)
+        public T Perform<T>(Func<T> action, UnitOfWorkScopeOption scopeOption)
         {
-            return PerformActionInUnitOfWork(action, scopeOption, IsolationLevel.ReadCommitted);
+            return Perform(action, scopeOption, IsolationLevel.ReadCommitted);
         }
 
-        public T PerformActionInUnitOfWork<T>(Func<T> action, UnitOfWorkScopeOption scopeOption,
-            IsolationLevel isolationLevel)
+        public T Perform<T>(Func<T> action, IsolationLevel isolationLevel)
+        {
+            return Perform(action, DetermineScopeOption(), isolationLevel);
+        }
+
+        public T Perform<T>(Func<T> action, UnitOfWorkScopeOption scopeOption, IsolationLevel isolationLevel)
         {
             T result;
             using (var scope = Provide(scopeOption, isolationLevel))
@@ -107,8 +97,23 @@ namespace NHibernateCore
                 result = action();
                 scope.Complete();
             }
-
             return result;
+        }
+
+        private UnitOfWorkScopeOption DetermineScopeOption()
+        {
+            var scopeOption = UnitOfWorkScopeOption.Required;
+            if (IsSessionFactoryOfAmbientScopeDifferent())
+            {
+                scopeOption = UnitOfWorkScopeOption.RequiresNew;
+            }
+            return scopeOption;
+        }
+
+        private bool IsSessionFactoryOfAmbientScopeDifferent()
+        {
+            return UnitOfWorkScope.Current != null && UnitOfWorkScope.Current.Session != null &&
+                _sessionFactory != UnitOfWorkScope.Current.Session.SessionFactory;
         }
     }
 }

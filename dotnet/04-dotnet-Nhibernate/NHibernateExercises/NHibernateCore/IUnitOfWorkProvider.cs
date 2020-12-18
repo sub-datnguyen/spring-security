@@ -1,27 +1,32 @@
 ﻿using System;
-using System.Transactions;
+using System.Data;
 
 namespace NHibernateCore
 {
     public interface IUnitOfWorkProvider
     {
+        IUnitOfWorkScope Provide();
 
-        UnitOfWorkScope Provide();
+        IUnitOfWorkScope Provide(UnitOfWorkScopeOption scopeOption);
 
-        UnitOfWorkScope Provide(UnitOfWorkScopeOption scopeOption);
+        IUnitOfWorkScope Provide(IsolationLevel isolationLevel);
 
-        UnitOfWorkScope Provide(UnitOfWorkScopeOption scopeOption, IsolationLevel isolationLevel);
+        IUnitOfWorkScope Provide(UnitOfWorkScopeOption scopeOption, IsolationLevel isolationLevel);
 
-        void PerformActionInUnitOfWork(Action action);
+        void Perform(Action action);
 
-        void PerformActionInUnitOfWork(Action action, UnitOfWorkScopeOption scopeOption);
+        void Perform(Action action, UnitOfWorkScopeOption scopeOption);
 
-        void PerformActionInUnitOfWork(Action action, UnitOfWorkScopeOption scopeOption, IsolationLevel isolationLevel);
+        void Perform(Action action, IsolationLevel isolationLevel);
 
-        T PerformActionInUnitOfWork<T>(Func<T> action);
+        void Perform(Action action, UnitOfWorkScopeOption scopeOption, IsolationLevel isolationLevel);
 
-        T PerformActionInUnitOfWork<T>(Func<T> action, UnitOfWorkScopeOption scopeOption);
+        T Perform<T>(Func<T> func);
 
-        T PerformActionInUnitOfWork<T>(Func<T> action, UnitOfWorkScopeOption scopeOption, IsolationLevel isolationLevel);
+        T Perform<T>(Func<T> func, UnitOfWorkScopeOption scopeOption);
+
+        T Perform<T>(Func<T> func, IsolationLevel isolationLevel);
+
+        T Perform<T>(Func<T> func, UnitOfWorkScopeOption scopeOption, IsolationLevel isolationLevel);
     }
 }
