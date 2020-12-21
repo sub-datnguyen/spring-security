@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30709.132
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHibernateCore", "NHibernateCore\NHibernateCore.csproj", "{A9FBD0CE-BDE0-4F96-9782-789A576AF3A0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHibernateExercises", "NHibernateExercises1\NHibernateExercises.csproj", "{95E70110-A883-4F05-8C09-894AB970576C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHibernateExercises", "NHibernateExercises\NHibernateExercises.csproj", "{95E70110-A883-4F05-8C09-894AB970576C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
