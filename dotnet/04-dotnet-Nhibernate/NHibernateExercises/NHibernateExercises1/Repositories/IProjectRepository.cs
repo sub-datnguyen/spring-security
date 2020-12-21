@@ -1,8 +1,8 @@
 ﻿using NHibernateCore;
-using NHibernateExercises1.Entities;
+using NHibernateExercises.Entities;
 using System.Collections.Generic;
 
-namespace NHibernateExercises1.Repositories
+namespace NHibernateExercises.Repositories
 {
     public interface IProjectRepository : IBaseRepository<ProjectEntity>
     {

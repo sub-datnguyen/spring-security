@@ -1,13 +1,13 @@
 ﻿using NHibernateCore;
-using NHibernateExercises1.Entities;
-using NHibernateExercises1.Repositories;
+using NHibernateExercises.Entities;
+using NHibernateExercises.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NHibernateExercises1.Services
+namespace NHibernateExercises.Services
 {
     public class ProjectService : IProjectService
     {

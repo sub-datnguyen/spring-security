@@ -1,12 +1,12 @@
 ﻿using NHibernate.Mapping.ByCode;
 using NHibernateCore;
-using NHibernateExercises1.Mappings;
+using NHibernateExercises.Mappings;
 
-namespace NHibernateExercises1.Infrastructure
+namespace NHibernateExercises.Infrastructure
 {
-    public class Exercise1SessionFactory : SessionFactory
+    public class ExerciseSessionFactory : SessionFactory
     {
-        public Exercise1SessionFactory(string connection) : base(connection)
+        public ExerciseSessionFactory(string connection) : base(connection)
         {
         }
 

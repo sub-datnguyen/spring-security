@@ -1,8 +1,8 @@
 ﻿using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
-using NHibernateExercises1.Entities;
+using NHibernateExercises.Entities;
 
-namespace NHibernateExercises1.Mappings
+namespace NHibernateExercises.Mappings
 {
     public class ProjectMap : ClassMapping<ProjectEntity>
     {

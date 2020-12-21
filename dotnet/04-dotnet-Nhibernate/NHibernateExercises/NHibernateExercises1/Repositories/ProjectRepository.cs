@@ -1,10 +1,10 @@
 ﻿using NHibernate.Criterion;
 using NHibernateCore;
-using NHibernateExercises1.Entities;
+using NHibernateExercises.Entities;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NHibernateExercises1.Repositories
+namespace NHibernateExercises.Repositories
 {
     public class ProjectRepository : BaseRepository<ProjectEntity>, IProjectRepository
     {

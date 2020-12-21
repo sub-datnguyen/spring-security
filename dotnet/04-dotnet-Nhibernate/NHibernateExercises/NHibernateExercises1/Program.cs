@@ -1,14 +1,14 @@
 ﻿using NHibernate;
 using NHibernateCore;
-using NHibernateExercises1.Infrastructure;
-using NHibernateExercises1.Repositories;
-using NHibernateExercises1.Services;
+using NHibernateExercises.Infrastructure;
+using NHibernateExercises.Repositories;
+using NHibernateExercises.Services;
 using SimpleInjector;
 using System;
 using System.Configuration;
 using System.Linq;
 
-namespace NHibernateExercises1
+namespace NHibernateExercises
 {
     class Program
     {
@@ -16,7 +16,7 @@ namespace NHibernateExercises1
         {
             string connectionString = ConfigurationManager.ConnectionStrings["Project"].ConnectionString;
             var container = new Container();
-            container.RegisterInstance(new Exercise1SessionFactory(connectionString).GetSessionFactory());
+            container.RegisterInstance(new ExerciseSessionFactory(connectionString).GetSessionFactory());
             container.Register<IUnitOfWorkProvider, UnitOfWorkProvider>(Lifestyle.Singleton);
             container.Register< IInterceptor, NullInterceptor>(Lifestyle.Singleton);
             container.Register<IProjectRepository, ProjectRepository>(Lifestyle.Singleton);
@@ -25,10 +25,10 @@ namespace NHibernateExercises1
             var projectService = container.GetInstance<IProjectService>();
             var numbers = projectService.GetAllProjectNumbers().Distinct().ToList();
 
-            Console.WriteLine("Start ProcessProjectInParallel");
+            Console.WriteLine("Exercise 1: why the transaction deadlock occurs below with ProcessProjectInParallel ? How will we solve it ?");
             // Question : why the transaction deadlock occurs ? How will we solve it ?
             projectService.ProcessProjectInParallel(numbers);
-            Console.WriteLine("End ProcessProjectInParallel");
+            Console.WriteLine("End Exercise 1");
         }
     }
 }

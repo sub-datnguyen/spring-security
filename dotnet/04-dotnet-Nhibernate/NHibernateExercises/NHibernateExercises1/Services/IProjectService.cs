@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NHibernateExercises1.Services
+namespace NHibernateExercises.Services
 {
     public interface IProjectService
     {

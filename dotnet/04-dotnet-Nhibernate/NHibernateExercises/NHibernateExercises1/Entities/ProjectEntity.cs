@@ -1,7 +1,7 @@
 ﻿using NHibernateCore;
 using System;
 
-namespace NHibernateExercises1.Entities
+namespace NHibernateExercises.Entities
 {
     public class ProjectEntity : BaseEntity
     {
