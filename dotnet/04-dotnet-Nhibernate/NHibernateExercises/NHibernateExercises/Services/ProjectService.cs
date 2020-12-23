@@ -98,5 +98,24 @@ namespace NHibernateExercises.Services
             uow.Complete();
             return result;
         }
+
+        public void ImportProjects()
+        {
+            using var uow = _unitOfWorkProvider.Provide();
+            var maxNumber = _projectRepository.GetMaxNumber();
+            for (int i = 0; i < 200000; i++)
+            {
+                maxNumber++;
+                var project = new Entities.ProjectEntity
+                {
+                    Number = maxNumber,
+                    Name = "ABC",
+                    StartDate = DateTime.Now,
+                    RowVersion = 1
+                };
+                _projectRepository.Add(project);
+            }
+            uow.Complete();
+        }
     }
 }

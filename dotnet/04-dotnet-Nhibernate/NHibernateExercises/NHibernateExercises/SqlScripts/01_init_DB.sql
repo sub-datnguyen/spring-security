@@ -37,3 +37,37 @@ GO
 
 SET IDENTITY_INSERT [dbo].[Project] OFF
 GO
+
+CREATE TABLE [dbo].[ParameterDefinition](
+	[Id] int NOT NULL,
+	[Name] [nvarchar](100) NOT NULL,
+	[Type] [nvarchar](100) NOT NULL,
+	[RowVersion] int not NULL,
+ CONSTRAINT [PK_dbo.ParameterDefinition] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] 
+
+GO
+
+CREATE TABLE [dbo].[ParameterValue](
+	[Id] int NOT NULL,
+	[Value] [nvarchar](100),
+	[Year] int,
+	[RowVersion] int not NULL,
+	[ParameterDefinitionId] int not NULL,
+ CONSTRAINT [PK_dbo.ParameterValue] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] 
+
+GO
+
+ALTER TABLE [dbo].[ParameterValue]  WITH CHECK ADD  CONSTRAINT [FK_ParameterValue_ParameterDefinition] FOREIGN KEY([ParameterDefinitionId])
+REFERENCES [dbo].[ParameterDefinition] ([Id])
+GO
+
+ALTER TABLE [dbo].[ParameterValue] CHECK CONSTRAINT [FK_ParameterValue_ParameterDefinition]
+GO

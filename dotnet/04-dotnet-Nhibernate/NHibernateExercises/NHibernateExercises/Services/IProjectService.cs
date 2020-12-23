@@ -7,5 +7,6 @@ namespace NHibernateExercises.Services
         void ProcessProject(int number);
         void ProcessProjectInParallel(List<int> numbers);
         IList<int> GetAllProjectNumbers();
+        void ImportProjects();
     }
 }

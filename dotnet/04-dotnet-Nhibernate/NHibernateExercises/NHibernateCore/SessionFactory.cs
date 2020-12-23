@@ -48,6 +48,7 @@ namespace NHibernateCore
             db.LogFormattedSql = true;
             db.ConnectionString = _connection;
             db.KeywordsAutoImport = Hbm2DDLKeyWords.None;
+            db.BatchSize = 1;
             db.Timeout = 150;
         }
 

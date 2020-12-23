@@ -13,6 +13,8 @@ namespace NHibernateExercises.Infrastructure
         public override void MappingTable(ModelMapper mapper)
         {
             mapper.AddMapping<ProjectMap>();
+            mapper.AddMapping<ParameterDefinitionMap>();
+            mapper.AddMapping<ParameterValueMap>();
         }
     }
 }
