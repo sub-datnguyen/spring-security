@@ -51,7 +51,22 @@ namespace NHibernateExercises.Services
         public void InsertParameter(ParameterDefinitionEntity parameter)
         {
             using var uow = _unitOfWorkProvider.Provide();
-            _parameterDefinitionRepository.SaveOrUpdate(parameter);
+            _parameterDefinitionRepository.Add(parameter);
+            uow.Complete();
+        }
+
+        public ParameterDefinitionEntity LoadParameter(int id)
+        {
+            using var uow = _unitOfWorkProvider.Provide();
+            var result = _parameterDefinitionRepository.LoadParameter(id);
+            uow.Complete();
+            return result;
+        }
+
+        public void UpdateParameter(ParameterDefinitionEntity parameter)
+        {
+            using var uow = _unitOfWorkProvider.Provide();
+            _parameterDefinitionRepository.Merge(parameter);
             uow.Complete();
         }
     }

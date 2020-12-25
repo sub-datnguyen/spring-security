@@ -7,5 +7,7 @@ namespace NHibernateExercises.Services
         void CreateAllParameters();
         void DeleteAllParameters();
         void InsertParameter(ParameterDefinitionEntity parameter);
+        ParameterDefinitionEntity LoadParameter(int id);
+        void UpdateParameter(ParameterDefinitionEntity parameter);
     }
 }
