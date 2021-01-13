@@ -5,6 +5,10 @@ using NHibernate.Dialect;
 using NHibernate.Driver;
 using NHibernate.Mapping.ByCode;
 using System;
+using NHibernate.Envers.Configuration;
+using NHibernate.Envers.Configuration.Fluent;
+using NHibernate.Envers.Event;
+using NHibernateCore.Enver;
 
 namespace NHibernateCore
 {
@@ -34,6 +38,10 @@ namespace NHibernateCore
             config.AddDeserializedMapping(mappings, null);
 
             AdditionalConfiguration(config);
+            if (SupportsAuditing)
+            {
+                ConfigureEnvers(config);
+            }
 
             return config.BuildSessionFactory();
         }
@@ -51,6 +59,34 @@ namespace NHibernateCore
             db.BatchSize = 1;
             db.Timeout = 150;
         }
+        protected virtual bool SupportsAuditing
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        private void ConfigureEnvers(Configuration config)
+        {
+            var enversConf = new FluentConfiguration();
+            ConfigurationKey.DefaultSchema.SetUserValue(config, "dbo");
+            ConfigurationKey.DoNotAuditOptimisticLockingField.SetUserValue(config, false);
+            ConfigurationKey.RevisionOnCollectionChange.SetUserValue(config, false);
+            ConfigurationKey.AuditTablePrefix.SetUserValue(config, String.Empty);
+            ConfigurationKey.AuditTableSuffix.SetUserValue(config, "_AUD");
+            ConfigurationKey.StoreDataAtDelete.SetUserValue(config, true);
+
+            enversConf.SetRevisionEntity<RevInfo>(e => e.Id, e => e.RevisionDate, new RevInfoListener());
+
+            AuditingTable(enversConf);
+            config.IntegrateWithEnvers(new AuditEventListener(), enversConf);
+        }
+
+        public virtual void AuditingTable(FluentConfiguration enversConfig)
+        {
+
+        }
 
         /// <summary>
         /// Can be overridden to add additional filters, interceptors, ...
@@ -59,7 +95,10 @@ namespace NHibernateCore
 
         public virtual void MappingTable(ModelMapper mapper)
         {
-            // TODO
+            if (SupportsAuditing)
+            {
+                mapper.AddMapping(new RevInfoMap("dbo"));
+            }
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using NHibernateCore.Enver;
+using NHibernateExercises.Entities;
 
 namespace NHibernateExercises.Services
 {
@@ -8,5 +10,7 @@ namespace NHibernateExercises.Services
         void ProcessProjectInParallel(List<int> numbers);
         IList<int> GetAllProjectNumbers();
         void ImportProjects();
+
+        List<ProjectEntity> GetAllProjectAudit();
     }
 }

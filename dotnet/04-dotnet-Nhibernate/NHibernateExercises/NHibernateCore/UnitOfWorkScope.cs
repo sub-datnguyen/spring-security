@@ -33,6 +33,7 @@ namespace NHibernateCore
         /// </summary>
         private UnitOfWorkScope _savedScope;
 
+
         /// <summary>Initializes a new instance of the <see cref="UnitOfWorkScope" /> class.
         /// </summary>
         /// <remarks>

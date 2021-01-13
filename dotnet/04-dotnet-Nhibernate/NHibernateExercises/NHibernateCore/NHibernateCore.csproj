@@ -7,6 +7,7 @@
   <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.12" />
     <PackageReference Include="NHibernate" Version="5.3.5" />
+    <PackageReference Include="NHibernate.Envers" Version="5.3.1" />
     <PackageReference Include="SimpleInjector" Version="5.2.0" />
   </ItemGroup>
 

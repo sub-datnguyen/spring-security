@@ -2,10 +2,14 @@
 using NHibernateExercises.Entities;
 using NHibernateExercises.Repositories;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NHibernate.Envers;
+using NHibernate.Envers.Query;
+using NHibernateCore.Enver;
 
 namespace NHibernateExercises.Services
 {
@@ -41,6 +45,32 @@ namespace NHibernateExercises.Services
             ExportProjects(number);
             uow.Complete();
         }
+
+        public List<ProjectEntity> GetAllProjectAudit()
+        {
+            using var uow = _unitOfWorkProvider.Provide();
+            var result = uow.Session.Auditer().CreateQuery().ForRevisionsOfEntity(typeof(ProjectEntity), true, true)
+                .GetResultList<ProjectEntity>();
+
+            uow.Complete();
+            return result.ToList();
+        }
+
+        private List<RevInfo> BuildListRevInfoPerEntry(IList revisions)
+        {
+            var resultList = new List<RevInfo>();
+            foreach (var element in revisions)
+            {
+                var t = new RevInfo();
+                var eP = element as IList<object>;
+                t.UpdateData(eP);
+                resultList.Add(t);
+            }
+            return resultList;
+        }
+
+        
+
 
         private void ExportProjects(int number)
         {

@@ -21,3 +21,6 @@ dotnet/03-dotnet-razor/BookLibrary/obj/Debug/net5.0/RazorDeclaration/Pages/Index
 dotnet/03-dotnet-razor/BookLibrary/obj/Debug/net5.0/RazorDeclaration/Shared/MainLayout.razor.g.cs
 dotnet/03-dotnet-razor/BookLibrary/obj/Debug/net5.0/RazorDeclaration/Shared/NavMenu.razor.g.cs
 dotnet/03-dotnet-razor/BookLibrary/obj/Debug/net5.0/RazorDeclaration/Shared/SurveyPrompt.razor.g.cs
+bin/
+obj/
+dotnet/04-dotnet-Nhibernate/NHibernateExercises/.vs/NHibernateExercises/v16/.suo

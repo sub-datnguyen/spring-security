@@ -5,6 +5,8 @@ namespace NHibernateCore
 {
     public interface IUnitOfWorkScope : IDisposable
     {
+        ISession Session { get; }
+
         void Complete();
 
         /// <summary>
