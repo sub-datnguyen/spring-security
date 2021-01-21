@@ -119,16 +119,20 @@ namespace NHibernateExercises
             // Exercise 7: Mapping with chapter 5 - Nhibernate Envers
             // please write query to get all revisions of of project with id = 1
             // and query to get a revisions of projects
-            var x = projectService.GetAllProjectAudit();
+            //var x = projectService.GetAllProjectAudit();
 
             // Exercise 8: Mapping with chapter 10 - NHibernate validator
             // please write a custom validator for Project which make sure ModificationDate >= CreationDate
-            ValidatorEngine validator = new ValidatorEngine();
-            var project = new ProjectEntity()
-            {
-                Name = new string('*', 255),
-            };
-            bool isValid = validator.IsValid(project);
+            //ValidatorEngine validator = new ValidatorEngine();
+            //var project = new ProjectEntity()
+            //{
+            //    Name = new string('*', 255),
+            //};
+            //bool isValid = validator.IsValid(project);
+
+            // Exercise 9: please verify the object return with getById and session.Load
+            // What's different between them
+
         }
     }
 }
