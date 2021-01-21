@@ -13,7 +13,10 @@ namespace NHibernateExercises.Mappings
             Table("Project");
             Id(x => x.Id, map => map.Generator(Generators.Identity));
             Property(x => x.Number, map => map.NotNullable(true));
-            Property(x => x.Name, map => map.NotNullable(true));
+            Property(x => x.Name, map =>
+            {
+                map.NotNullable(true);
+            });
             Property(x => x.StartDate, map => map.NotNullable(true));
             Property(x => x.EndDate);
             Version(e => e.RowVersion, versionMapper => versionMapper.Generated(VersionGeneration.Never));

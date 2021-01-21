@@ -8,6 +8,9 @@ using System;
 using NHibernate.Envers.Configuration;
 using NHibernate.Envers.Configuration.Fluent;
 using NHibernate.Envers.Event;
+using NHibernate.Validator.Cfg;
+using NHibernate.Validator.Engine;
+using NHibernate.Validator.Event;
 using NHibernateCore.Enver;
 
 namespace NHibernateCore
@@ -16,6 +19,7 @@ namespace NHibernateCore
     {
         protected virtual string DefaultSchema => String.Empty;
         protected readonly string _connection;
+        public ValidatorEngine Engine;
 
         public SessionFactory(string connection)
         {
@@ -31,6 +35,8 @@ namespace NHibernateCore
             config.SetProperty(global::NHibernate.Cfg.Environment.QueryStartupChecking, Boolean.TrueString);
             config.SetProperty(global::NHibernate.Cfg.Environment.PrepareSql, Boolean.TrueString);
             config.SetProperty(global::NHibernate.Cfg.Environment.DefaultSchema, DefaultSchema);
+            config.SetProperty("apply_to_ddl", Boolean.TrueString);
+            config.SetProperty("autoregister_listeners", Boolean.TrueString);
 
             var mapper = new ModelMapper();
             MappingTable(mapper);
@@ -42,6 +48,10 @@ namespace NHibernateCore
             {
                 ConfigureEnvers(config);
             }
+
+            Engine = new ValidatorEngine();
+            config.Initialize(Engine);
+
 
             return config.BuildSessionFactory();
         }
