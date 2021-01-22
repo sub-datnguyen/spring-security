@@ -32,16 +32,12 @@ namespace NHibernateExercises
             var numbers = projectService.GetAllProjectNumbers().Distinct().ToList();
 
             // Exercise 1: Mapping with topic #1 - Session & Unit of work
-            // please verify the object return by method BaseRepository.Load(int id) and BaseRepository.GetById(int id)
-            // What's different between them ?
-
-            // Exercise 2: Mapping with topic #1 - Session & Unit of work
             // why the transaction deadlock occurs below with ProcessProjectInParallel ? How will we solve it ?
             Console.WriteLine("Exercise 1: why the transaction deadlock occurs below with ProcessProjectInParallel ? How will we solve it ?");
             projectService.ProcessProjectInParallel(numbers);
             Console.WriteLine("------------------------------------------------------------------------------------------------------------");
 
-            // Exercise 3 : Mapping with topic #2 - Concurrent update
+            // Exercise 2 : Mapping with topic #2 - Concurrent update
             // why OptimisticVersionException is thrown while there is no row into DB for table ParameterDefinition + ParameterValue ?
             Console.WriteLine("Exercise 2: why OptimisticVersionException is thrown while there is no row into DB for table ParameterDefinition + ParameterValue ?");
             try
@@ -72,8 +68,8 @@ namespace NHibernateExercises
             }
             Console.WriteLine("------------------------------------------------------------------------------------------------------------");
 
-            // Exercise 4 : Mapping with topic #3 - Cascade/Inverse  
-            // Assume : you solved the Exercise 3 and saved the parameter into DB successful 
+            // Exercise 3 : Mapping with topic #3 - Cascade/Inverse  
+            // Assume : you solved the Exercise 2 and saved the parameter into DB successful 
             // Why ParameterValue is not deleted into DB when we clear the list 'ParameterValues' and save into DB ? How do we delete ParameterValue by using Cascade? 
             Console.WriteLine("Exercise 3: (Cascade)  Why ParameterValue is not deleted into DB when we clear the list 'ParameterValues' and save into DB ? How do we delete ParameterValue by using Cascade? ");
             var para = parameterService.LoadParameter(1);
@@ -90,7 +86,7 @@ namespace NHibernateExercises
             }
             Console.WriteLine("------------------------------------------------------------------------------------------------------------");
 
-            // Exercise 5: Mapping with topic #4 - Performance Optimizations & Batch update/delete/insert  
+            // Exercise 4 : Mapping with topic #4 - Performance Optimizations & Batch update/delete/insert  
             // Please improve the performance for two methods CreateAllParameters & DeleteAllParameters 
             Console.WriteLine("Exercise 4: Please improve the performance for two methods CreateAllParameters & DeleteAllParameters");
             Stopwatch stopWatch = new Stopwatch();
@@ -104,7 +100,7 @@ namespace NHibernateExercises
             Console.WriteLine($"Delete all parameters in {stopWatch.Elapsed.TotalSeconds} seconds");
             Console.WriteLine("------------------------------------------------------------------------------------------------------------");
 
-            // Exercise 6: mapping with topic #5 - Advanced mapping concepts & Model inheritance (join)
+            // Exercise 5: mapping with topic #5 - Advanced mapping concepts & Model inheritance (join)
             // We have Table per class hierarchy, Table per type 
             // please extend table ParameterValue so that it can store for both OutputParameterValue and InputParameterValue
             // The OutputParameterValue will have more column FormatData nvarchar(100) , the InputParameterValue will have the column IsMandatory bit
@@ -114,18 +110,18 @@ namespace NHibernateExercises
             // For Table per type, we will have 3 table OutputParameterValue, InputParameterValue, ParameterValue
 
 
-            // Exercise 7: Mapping with topic #6 - Interceptor / event model on NHibernate
+            // Exercise 6 : Mapping with topic #6 - Interceptor / event model on NHibernate
             // implement interceptor
             // We will extend the table Project with new columns CreationDate - UpdateDate
             // Please implement the interceptor so that when we save/update data, it will automatically update for these column CreationDate - UpdateDate
 
 
-            // Exercise 8: Mapping with topic #7 - Nhibernate Envers
+            // Exercise 7 : Mapping with topic #7 - Nhibernate Envers
             // please write query to get all revisions of project with id = 1
             // and query to get a revisions of projects
             //var x = projectService.GetAllProjectAudit();
 
-            // Exercise 9: Mapping with topic #8 - NHibernate validator
+            // Exercise 8: Mapping with topic #8 - NHibernate validator
             // please write a custom validator for Project which make sure ModificationDate >= CreationDate
             //ValidatorEngine validator = new ValidatorEngine();
             //var project = new ProjectEntity()
@@ -133,6 +129,10 @@ namespace NHibernateExercises
             //    Name = new string('*', 255),
             //};
             //bool isValid = validator.IsValid(project);
+
+            // Exercise 9: Mapping with topic #9 - Proxy/Lazy
+            // please verify the object return by method BaseRepository.Load(int id) and BaseRepository.GetById(int id)
+            // What's different between them ?
         }
     }
 }
