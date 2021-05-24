@@ -11,7 +11,7 @@ namespace pim_react.Controllers
     [Route("[controller]")]
     public class ProjectController : ControllerBase
     {
-        private static readonly List<Project> AllProjects = new List<Project>() {
+        private static readonly List<Project> AllProjects = new() {
             new Project (){Id = 1, Number = 123, Customer = "CustomerA", Name = "Project A", Group = ".NET", Members = "AAA,BBB,CCC", Status  = ProjectStatusEnum.New},
             new Project (){Id = 2, Number = 456, Customer = "CustomerB", Name = "Project B", Group = ".Java", Members = "AAA,BBB,CCC", Status  = ProjectStatusEnum.New},
             new Project (){Id = 3, Number = 789, Customer = "CustomerC", Name = "Project C", Group = ".NET", Members = "AAA,BBB,CCC", Status  = ProjectStatusEnum.Planned},
@@ -36,16 +36,21 @@ namespace pim_react.Controllers
         }
 
         [HttpGet]
+        [Route("/project/search")]
         public IEnumerable<Project> SearchProjects([FromQuery]int number, [FromQuery] string prjName, [FromQuery] string customerName)
         {
-            return AllProjects.Where(prj => prj.Number == number || prj.Name == prjName || prj.Customer == customerName);
+            return AllProjects.Where(prj =>
+                (number == 0 || prj.Number == number) && 
+                (string.IsNullOrEmpty(prjName) || prj.Name.Contains(prjName.Trim())) &&
+                (string.IsNullOrEmpty(customerName) || prj.Customer.Contains(customerName.Trim())));
         }
 
 
         [HttpPost]
-        public Project UpdateProject([FromBody] Project prj)
+        [Route("/project/{prjId:int}")]
+        public Project UpdateProject(int prjId, [FromBody] Project prj)
         {
-            var updatedPrj = AllProjects.FirstOrDefault(prj => prj.Id == prj.Id);
+            var updatedPrj = AllProjects.FirstOrDefault(p => p.Id == prjId);
             if (updatedPrj == null) {
                 throw new KeyNotFoundException(string.Format("Not found project-number{0}", prj.Id));
             }
@@ -60,8 +65,9 @@ namespace pim_react.Controllers
             return updatedPrj;
         }
 
-        [HttpPost]
-        public void RemoveProject([FromBody] int prjId)
+        [HttpDelete]
+        [Route("/project/{prjId:int}")]
+        public void RemoveProject(int prjId)
         {
             var deletedPrj = AllProjects.FirstOrDefault(prj => prj.Id == prj.Id);
             if (deletedPrj == null)

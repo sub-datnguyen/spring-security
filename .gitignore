@@ -24,3 +24,4 @@ dotnet/03-dotnet-razor/BookLibrary/obj/Debug/net5.0/RazorDeclaration/Shared/Surv
 bin/
 obj/
 dotnet/04-dotnet-Nhibernate/NHibernateExercises/.vs/NHibernateExercises/v16/.suo
+node_modules/
