@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.4.5</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+
+    <groupId>vn.elca</groupId>
+    <artifactId>proj-code-base-backend</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <name>proj-code-base-backend</name>
+    <description>ELCA VN codebase project</description>
+
+    <scm>
+        <developerConnection>scm:git:ssh://git@git.elcanet.local:7999/elcavn-tech-training/java-code-base.git</developerConnection>
+        <url>scm:git:ssh://git@git.elcanet.local:7999/elcavn-tech-training/java-code-base.git</url>
+        <tag>release-0.1.0</tag>
+    </scm>
+
+    <properties>
+        <java.version>11</java.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- project libraries version -->
+        <mapstruct.version>1.4.2.Final</mapstruct.version>
+
+        <!-- Apache common libraries -->
+        <commons-io.version>2.8.0</commons-io.version>
+        <commons-cli.version>1.4</commons-cli.version>
+        <commons-beanutils.version>1.9.4</commons-beanutils.version>
+
+        <!-- Plugins versions -->
+        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
+        <build-helper-maven-plugin.version>3.1.0</build-helper-maven-plugin.version>
+        <version.jaxb2-maven-plugin>2.5.0</version.jaxb2-maven-plugin>
+        <typescript-generator-maven-plugin.version>2.20.583</typescript-generator-maven-plugin.version>
+
+        <!-- SONAR -->
+        <sonar.profile>ELCA Way</sonar.profile>
+        <sonar.host.url>http://ci.elcanet.local/sonar</sonar.host.url>
+        <sonar.ldap.project>prj_ev-codebase</sonar.ldap.project>
+        <sonar.pullrequest.bitbucket.projectKey>codebase</sonar.pullrequest.bitbucket.projectKey>
+        <sonar.pullrequest.bitbucket.repositorySlug>codebase</sonar.pullrequest.bitbucket.repositorySlug>
+        <sonar.log.level>DEBUG</sonar.log.level>
+        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+        <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+        <sonar.java.binaries>target/classes</sonar.java.binaries>
+        <sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
+        <sonar.inclusions>**/*.java</sonar.inclusions>
+        <sonar.cpd.exclusions>
+            **/*Dto.java,
+            **/entity/*.java,
+            **/enums/*.java,
+            **/mapper/*.java,
+            **/dto/*.java,
+            **/generated-sources/**,
+            **/dummy/*.java,
+            **/mock/*.java
+        </sonar.cpd.exclusions>
+        <sonar.coverage.exclusions>
+            **/*Dto.java,
+            **/*Exception.java,
+            **/entity/*.java,
+            **/enums/*.java,
+            **/dto/*.java,
+            **/exception/*.java,
+            **/generator/**,
+            **/mapper/**,
+            **/generated-sources/**,
+            **/dummy/*.java,
+            **/mock/*.java,
+            **/*.ts
+        </sonar.coverage.exclusions>
+        <!--# note: some exlusions to avoid triggering of the HTML, CSS profiles (too many false positives in conjunction with angular / sass)-->
+        <sonar.exclusions>
+            **/*.html,
+            **/*.scss,
+            **/*.json,
+            **/*.conf.js,
+            **/generated-sources/**
+        </sonar.exclusions>
+
+    </properties>
+
+    <modules>
+        <module>database-script</module>
+        <module>common</module>
+        <module>service</module>
+        <module>web</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Project dependencies -->
+            <dependency>
+                <groupId>vn.elca</groupId>
+                <artifactId>proj-code-base-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>vn.elca</groupId>
+                <artifactId>proj-code-base-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>vn.elca</groupId>
+                <artifactId>proj-code-base-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>vn.elca</groupId>
+                <artifactId>proj-code-base-database-script</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- project test JARs - used in case you want to include test classes from other modules in project -->
+            <dependency>
+                <groupId>vn.elca</groupId>
+                <artifactId>proj-code-base-database</artifactId>
+                <version>${project.version}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>vn.elca</groupId>
+                <artifactId>proj-code-base-service</artifactId>
+                <version>${project.version}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <!-- http://mapstruct.org/documentation/ide-support/ -->
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
+                <optional>true</optional>
+            </dependency>
+
+
+            <!-- Apache Commons libs -->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-cli</groupId>
+                <artifactId>commons-cli</artifactId>
+                <version>${commons-cli.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>${commons-beanutils.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <!--
+    <distributionManagement>
+        <repository>
+            <id>project-release</id>
+            <url>https://ci.elcanet.local/artifactory/<your_project_release_repository_name>/</url>
+        </repository>
+        <snapshotRepository>
+            <id>project-snapshot</id>
+            <url>https://ci.elcanet.local/artifactory/<your_project_snapshot_repository_name>/</url>
+        </snapshotRepository>
+    </distributionManagement>
+    -->
+
+    <repositories>
+        <repository>
+            <id>elca-release-repository</id>
+            <url>https://ci.elcanet.local/artifactory/libs-release</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <!--
+        <repository>
+            <id>project-release</id>
+            <url>https://ci.elcanet.local/artifactory/<your_project_release_repository_name>/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>project-snapshot</id>
+            <url>https://ci.elcanet.local/artifactory/<your_project_snapshot_repository_name>/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+        -->
+    </repositories>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
+
+                <!-- Adapt compiler to make it worked with Lombok and Mapstruct -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <release>11</release>
+                        <compilerArgs>
+                            <arg>-parameters</arg>
+                        </compilerArgs>
+                        <annotationProcessorPaths>
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                                <version>${lombok.version}</version>
+                            </path>
+                            <path>
+                                <groupId>org.mapstruct</groupId>
+                                <artifactId>mapstruct-processor</artifactId>
+                                <version>${mapstruct.version}</version>
+                            </path>
+                        </annotationProcessorPaths>
+                    </configuration>
+                </plugin>
+
+                <!-- Code generator for QueryDSL -->
+                <plugin>
+                    <groupId>com.mysema.maven</groupId>
+                    <artifactId>apt-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>process</goal>
+                            </goals>
+                            <configuration>
+                                <!-- change the output dir to java instead of annotations to avoid the issue that IntelliJ
+                                     doesn't recognize the querydsl-apt annotation and cleans up all the Qxxx classes in the
+                                     annotations dir. -->
+                                <outputDirectory>target/generated-sources/java</outputDirectory>
+                                <processors>
+<!--                                    <processor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor</processor>-->
+                                    <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+<!--                                    <processor>org.mapstruct.ap.MappingProcessor</processor>-->
+                                </processors>
+
+                            </configuration>
+                        </execution>
+                    </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.querydsl</groupId>
+                            <artifactId>querydsl-apt</artifactId>
+                            <version>${querydsl.version}</version>
+                        </dependency>
+<!--                        <dependency>-->
+<!--                            <groupId>org.mapstruct</groupId>-->
+<!--                            <artifactId>mapstruct-processor</artifactId>-->
+<!--                            <version>${mapstruct.version}</version>-->
+<!--                        </dependency>-->
+<!--                        <dependency>-->
+<!--                            <groupId>org.projectlombok</groupId>-->
+<!--                            <artifactId>lombok</artifactId>-->
+<!--                            <version>${lombok.version}</version>-->
+<!--                        </dependency>-->
+                    </dependencies>
+                </plugin>
+
+                <!--  Git build info -->
+                <plugin>
+                    <groupId>pl.project13.maven</groupId>
+                    <artifactId>git-commit-id-plugin</artifactId>
+                    <configuration>
+                        <dotGitDirectory>${project.basedir}/../../.git</dotGitDirectory>
+                        <generateGitPropertiesFile>false</generateGitPropertiesFile>
+                        <prefix>git</prefix>
+                        <verbose>true</verbose>
+                        <offline>true</offline>
+                        <runOnlyOnce>true</runOnlyOnce>
+                        <dateFormat>dd-MM-yyyy 'T' HH:mm:ss Z</dateFormat>
+                        <abbrevLength>8</abbrevLength>
+                        <runOnlyOnce>false</runOnlyOnce>
+                    </configuration>
+                </plugin>
+                <!-- Add additional info to the built JAR -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <configuration>
+                        <finalName>${project.artifactId}</finalName>
+                        <archive>
+                            <manifest>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            </manifest>
+                            <manifestEntries>
+                                <Implementation-Build>${git.build.time}</Implementation-Build>
+                                <Implementation-Build-Time>${git.commit.id.abbrev}</Implementation-Build-Time>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <!-- build both normal JARs and TEST JARs -->
+                            <!-- check this like for more information: https://stackoverflow.com/questions/40964500/maven-jar-plugin-3-0-2-error-you-have-to-use-a-classifier-to-attach-supplementa -->
+                            <goals>
+                                <goal>test-jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- UnitTest and Sonar plugins -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <argLine>-Dspring.profiles.active=unittest -Dspring.config.name=application-unittest-Dfile.encoding=UTF-8
+                        </argLine>
+
+                        <!-- Just to allow maven execute all tests regardless of the failure test -->
+                        <testFailureIgnore>true</testFailureIgnore>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>agent</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>report</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- Code generator plugin for Frontend -->
+                <plugin>
+                    <groupId>cz.habarta.typescript-generator</groupId>
+                    <artifactId>typescript-generator-maven-plugin</artifactId>
+                    <version>${typescript-generator-maven-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>vn-dev</id>
+            <properties>
+                <projectDataSource.jdbcUrl>jdbc:oracle:thin:@//localhost:1521/XEPDB1</projectDataSource.jdbcUrl>
+                <projectDataSource.user>CODE_BASE_DEV</projectDataSource.user>
+                <projectDataSource.password>CODE_BASE_DEV</projectDataSource.password>
+                <projectDataSource.driver>oracle.jdbc.OracleDriver</projectDataSource.driver>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>sonar</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>0.8.5</version>
+                        <executions>
+                            <execution>
+                                <id>agent</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>report</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

@@ -1,0 +1,6 @@
+target
+/**/.idea
+/back/**/*.iml
+/logs/
+/back/logs/
+/back/web/logs/

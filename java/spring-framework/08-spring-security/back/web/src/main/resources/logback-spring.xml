@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%X{CorrelationId} %d{"yyyy-MM-dd 'T' HH:mm:ss.SSS XXX", } %-5p [%X{Username}] [%t] [%c] %m%n</Pattern>
+		</encoder>
+	</appender>
+
+	<appender name="tomcat" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>./logs/code-base-application.log</file>
+		
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%X{CorrelationId} %d{"yyyy-MM-dd 'T' HH:mm:ss.SSS XXX", } %-5p [%X{Username}] [%t] [%c] %m%n</Pattern>
+		</encoder>
+		
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>./logs/code-base-application-%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>7</maxHistory>
+		</rollingPolicy>
+	</appender>
+
+    <logger name="vn.elca.codebase" additivity="false">
+		<level value="DEBUG"/>
+		<appender-ref ref="console" />
+		<appender-ref ref="tomcat" />
+	</logger>
+
+	<logger name="org.hibernate.SQL" additivity="false">
+		<level value="INFO"/>
+		<appender-ref ref="console" />
+		<appender-ref ref="tomcat" />
+	</logger>
+
+
+	<root level="INFO">
+		<appender-ref ref="console" />
+		<appender-ref ref="tomcat" />
+	</root>
+ </configuration>
