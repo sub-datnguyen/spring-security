@@ -25,3 +25,4 @@ bin/
 obj/
 dotnet/04-dotnet-Nhibernate/NHibernateExercises/.vs/NHibernateExercises/v16/.suo
 node_modules/
+.vs
