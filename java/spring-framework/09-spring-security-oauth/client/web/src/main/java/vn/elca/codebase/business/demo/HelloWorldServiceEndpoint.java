@@ -2,7 +2,6 @@ package vn.elca.codebase.business.demo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +19,8 @@ public class HelloWorldServiceEndpoint extends AbstractElcaServiceEndpoint {
     
     @GetMapping("sayHello/{personName}")
     @ResponseBody
-    public String helloWorld(@PathVariable String personName, OAuth2AuthenticationToken token) {
-        return String.format("Hello %s with %d projects: %s",
-            personName, projectService.demoCountProjects(), token.getPrincipal());
+    public String helloWorld(@PathVariable String personName) {
+        return String.format("Hello %s with %d projects",
+            personName, projectService.demoCountProjects());
     }
 }

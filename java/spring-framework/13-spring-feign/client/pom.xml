@@ -93,7 +93,6 @@
     </properties>
 
     <modules>
-        <module>database-script</module>
         <module>common</module>
         <module>service</module>
         <module>web</module>
@@ -117,12 +116,6 @@
                 <artifactId>web</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>vn.elca.spring-feign</groupId>
-                <artifactId>database-script</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
             <!-- project test JARs - used in case you want to include test classes from other modules in project -->
             <dependency>
                 <groupId>vn.elca.spring-feign</groupId>

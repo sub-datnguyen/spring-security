@@ -89,7 +89,6 @@
     </properties>
 
     <modules>
-        <module>database-script</module>
         <module>common</module>
         <module>service</module>
         <module>web</module>
@@ -113,12 +112,6 @@
                 <artifactId>authorization-server-web</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>vn.elca.spring-security-oauth</groupId>
-                <artifactId>authorization-server-database-script</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
             <!-- project test JARs - used in case you want to include test classes from other modules in project -->
             <dependency>
                 <groupId>vn.elca.spring-security-oauth</groupId>

@@ -95,7 +95,6 @@
     </properties>
 
     <modules>
-        <module>database-script</module>
         <module>common</module>
         <module>service</module>
         <module>web</module>
@@ -119,12 +118,6 @@
                 <artifactId>proj-code-base-web</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>vn.elca</groupId>
-                <artifactId>proj-code-base-database-script</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
             <!-- project test JARs - used in case you want to include test classes from other modules in project -->
             <dependency>
                 <groupId>vn.elca</groupId>

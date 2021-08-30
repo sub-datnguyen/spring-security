@@ -14,11 +14,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>vn.elca.spring-aop</groupId>
-            <artifactId>database-script</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>

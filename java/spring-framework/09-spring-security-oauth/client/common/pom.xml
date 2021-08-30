@@ -13,10 +13,6 @@
     <artifactId>client-common</artifactId>
 
     <dependencies>
-        <dependency>
-            <groupId>vn.elca.spring-security-oauth</groupId>
-            <artifactId>client-database-script</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>

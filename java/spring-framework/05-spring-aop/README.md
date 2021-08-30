@@ -29,5 +29,25 @@ Create Spring boot configuration
 ![](_static/configuration-to-run-locally.jpg)
 
 ## Exercise
-1. Create an aspect TimingAspect: Calculate how long each call of method in `HelloWorldServiceEndpoint` takes.
-2. Use AOP to filter/transform the result of the method or input param of a method
+1. Create an aspect TimingAspect: Calculate how long for each requests and each methods in Controller, Service, Repository and display in the following format:
+~~~~
+Methods: PersonnePermissionContext.getParentGroups(..)start execution
+  |__Methods: GroupeRepositoryImpl.findAllActiveForCache()start execution
+    |__Methods: GroupeRepositoryImpl.findAllActiveForCache()start execution
+    |__/Methods: GroupeRepositoryImpl.findAllActiveForCache(), execution time: 37ms
+  |__/Methods: GroupeRepositoryImpl.findAllActiveForCache(), execution time: 38ms
+  |__Methods: GroupeRepositoryImpl.findAllActiveMembresForCache()start execution
+    |__Methods: GroupeRepositoryImpl.findAllActiveMembresForCache()start execution
+    |__/Methods: GroupeRepositoryImpl.findAllActiveMembresForCache(), execution time: 25ms
+  |__/Methods: GroupeRepositoryImpl.findAllActiveMembresForCache(), execution time: 26ms
+  |__Methods: PersonneRepositoryImpl.findAllActiveMembresByIdentifiantIamForCache(..)start execution
+    |__Methods: PersonneRepositoryImpl.findAllActiveMembresByIdentifiantIamForCache(..)start execution
+    |__/Methods: PersonneRepositoryImpl.findAllActiveMembresByIdentifiantIamForCache(..), execution time: 2ms
+  |__/Methods: PersonneRepositoryImpl.findAllActiveMembresByIdentifiantIamForCache(..), execution time: 2ms
+/Methods: PersonnePermissionContext.getParentGroups(..), execution time: 71ms
+~~~~
+2. Use AOP to filter/transform the result of the method or input param of a method with the following scenario:
+   1. Add one additional property `secured` in Project entity.
+   2. Ensure the project name is anonymized Replace project name with "******" when we load project with `secured` = true
+
+   

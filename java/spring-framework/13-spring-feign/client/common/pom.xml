@@ -13,10 +13,6 @@
     <artifactId>common</artifactId>
 
     <dependencies>
-        <dependency>
-            <groupId>vn.elca.spring-feign</groupId>
-            <artifactId>database-script</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>

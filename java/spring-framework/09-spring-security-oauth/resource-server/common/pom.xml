@@ -14,11 +14,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>vn.elca.spring-security-oauth</groupId>
-            <artifactId>resource-server-database-script</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
