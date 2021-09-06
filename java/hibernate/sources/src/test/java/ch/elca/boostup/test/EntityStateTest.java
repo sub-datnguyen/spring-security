@@ -1,5 +1,6 @@
-package ch.elca.boostup;
+package ch.elca.boostup.test;
 
+import ch.elca.boostup.HibernateApplicationTests;
 import ch.elca.boostup.entity.ProjectEntity;
 import ch.elca.boostup.exception.ElcaBusinessException;
 import ch.elca.boostup.services.ProjectService;
@@ -98,8 +99,7 @@ class EntityStateTest extends HibernateApplicationTests {
         List<ProjectEntity> projectEntities = projectService.findAll();
         Assertions.assertTrue(CollectionUtils.isNotEmpty(projectEntities),
             "All projects");
-        // TODO [Exercise]: please correct the expected number and explain this result
-        Assertions.assertEquals(0, projectEntities.size(),
-            "How many projects in DB? Explain result");
+        Assertions.assertEquals(3, projectEntities.size(),
+            "Explain result");
     }
 }

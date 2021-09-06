@@ -1,5 +1,6 @@
-package ch.elca.boostup;
+package ch.elca.boostup.test;
 
+import ch.elca.boostup.HibernateApplicationTests;
 import ch.elca.boostup.entity.ProjectEntity;
 import ch.elca.boostup.exception.ElcaBusinessException;
 import ch.elca.boostup.repository.ProjectRepository;
