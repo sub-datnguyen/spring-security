@@ -1,8 +1,3 @@
-/*
- * Project: EV-MAGELLAN
- * ELCA Informatique SA
- */
-
 package ch.elca.boostup.entity;
 
 import java.time.LocalDateTime;
