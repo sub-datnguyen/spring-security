@@ -8,9 +8,6 @@ import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * @author vlp
- */
 @Getter @Setter
 @MappedSuperclass
 public abstract class AbstractAuditEntity extends AbstractCodeBaseEntity {

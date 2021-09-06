@@ -6,9 +6,6 @@ import ch.elca.boostup.exception.ElcaBusinessException;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * @author tcb
- */
 public interface ProjectService {
 
     ProjectEntity save(ProjectEntity projectEntity);
