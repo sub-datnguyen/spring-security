@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  mysql:
+    image: mysql:8.0.23
+    restart: always
+    volumes:
+      - ./database/:/var/lib/mysql/
+    environment:
+      - MYSQL_USER=elca
+      - MYSQL_PASSWORD=elca
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - MYSQL_DATABASE=HIBERNATE_BOOSTUP
+    healthcheck:
+      test: [ "CMD", "mysql" ,"-h", "localhost", "-u", "elca", "--password=elca", "-e", "SELECT 1" ]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+    ports:
+      - 3306:3306
+    command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
