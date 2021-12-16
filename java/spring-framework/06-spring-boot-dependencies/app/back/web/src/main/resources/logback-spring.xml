@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%X{CorrelationId} %X{IP-Address} %d{yyyy-MM-dd Z HH:mm:ss.SSS} %-5p [%t] [%c] [%X{Username}] %X{UserActivity} %X{InterfaceName} %X{BusinessId} %m%n</Pattern>
+		</encoder>
+	</appender>
+
+	<appender name="tomcat" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>./logs/training-application.log</file>
+		
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%X{CorrelationId} [%X{IP-Address}] %d{yyyy-MM-dd Z HH:mm:ss.SSS} %-5p [%t] [%c] [%X{Username}] %X{UserActivity} %X{InterfaceName} %X{BusinessId} %m%n</Pattern>
+		</encoder>
+		
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>./logs/training-application-%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>7</maxHistory>
+		</rollingPolicy>
+	</appender>
+
+    <logger name="vn.elca.training" additivity="false">
+		<level value="DEBUG"/>
+		<appender-ref ref="console" />
+		<appender-ref ref="tomcat" />
+	</logger>
+
+	<logger name="org.hibernate.SQL" additivity="false">
+		<level value="INFO"/>
+		<appender-ref ref="console" />
+		<appender-ref ref="tomcat" />
+	</logger>
+	<logger name="com.zaxxer" additivity="false">
+		<level value="DEBUG"/>
+		<appender-ref ref="console" />
+		<appender-ref ref="tomcat" />
+	</logger>
+
+	<root level="WARN">
+		<appender-ref ref="console" />
+		<appender-ref ref="tomcat" />
+	</root>
+ </configuration>

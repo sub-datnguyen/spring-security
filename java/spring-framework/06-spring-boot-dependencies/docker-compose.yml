@@ -1,0 +1,25 @@
+version: "3.7"
+services:
+  activemq-artemis:
+    image:  prj-elcavn-tech-training-docker.artifactory.svc.elca.ch/activemq-artemis:2.11.0-20200727
+    container_name: activemq-artemis
+    ports:
+      - 61616:61616
+      - 8161:8161
+    restart: always
+    environment:
+      - ARTEMIS_USERNAME=dev
+      - ARTEMIS_PASSWORD=dev
+      - ARTEMIS_MIN_MEMORY=1G
+      - ARTEMIS_MAX_MEMORY=3G
+  mysql-db:
+    image:  prj-elcavn-tech-training-docker.artifactory.svc.elca.ch/spring-training/mysql-server:5.7
+    container_name: mysql-db
+    command: --lower_case_table_names=1
+    environment:
+      - MYSQL_DATABASE=db
+      - MYSQL_USER=dev
+      - MYSQL_PASSWORD=dev
+      - lower_case_table_names=1
+    ports:
+      - 3306:3306

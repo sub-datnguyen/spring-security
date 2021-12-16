@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:element name="zgenDGMRvehicleReturn">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="header"/>
+				<xs:element ref="listeEngins"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="header">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="version"/>
+				<xs:element ref="sender"/>
+				<xs:element ref="receiver"/>
+				<xs:element ref="dateMessage"/>
+				<xs:element ref="heureMessage"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="version">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="8"/>
+				<xs:minLength value="6"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="sender">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="8"/>
+				<xs:minLength value="6"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="receiver">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:length value="3"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="dateMessage" type="xs:string"/>
+	<xs:element name="heureMessage" type="xs:string"/>
+
+	<xs:element name="listeEngins">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="engin" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- definition de la response de TIM a l'appel de l'ESB -->
+	<xs:element name="syncEnginResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="messageId" type="xs:string" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="responseDate" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
+				<xs:choice>
+					<xs:element name="success">
+						<xs:annotation>
+							<xs:documentation>Un élément vide qui indique que le message a été traité avec succès</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="error">
+						<xs:annotation>
+							<xs:documentation>Indique qu'il y a une erreur lors du traitement du message. Valeurs pour errorCode: 1=Erreur technique, 3=Erreur métier. Le détail se trouve dans l'élément errorMessage"</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="errorCode" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+								<xs:element name="errorMessage" type="xs:string" minOccurs="0" maxOccurs="1"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- definition de l'element Engin-->
+	<xs:element name="engin">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="lienPhoto" type="string250" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="entiteCode" type="xs:string" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="localisationSecteurCodeEntSect" type="xs:string" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="numeroIdentification" type="xs:int" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="designation" type="string40" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="description" type="string1000" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="categorieExploitationErCode" type="xs:string" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="numPlaque" type="string40" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="typePermis" type="string100" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="statut" type="string100" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="string40">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="40"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="string100">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="100"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="string250">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="250"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="string1000">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="1000"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

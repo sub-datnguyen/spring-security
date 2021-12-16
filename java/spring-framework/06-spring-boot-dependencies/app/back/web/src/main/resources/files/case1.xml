@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zgenDGMRvehicleReturn xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <header>
+        <version>000001</version>
+        <sender>ECCXXXXX</sender>
+        <receiver>TIM</receiver>
+        <dateMessage>2020-03-01</dateMessage>
+        <heureMessage>09:10:30</heureMessage>
+    </header>
+    <listeEngins>
+        <engin>
+            <lienPhoto>/engin/photo1.png</lienPhoto>
+            <entiteCode>10</entiteCode>
+            <localisationSecteurCodeEntSect>7</localisationSecteurCodeEntSect>
+            <numeroIdentification>1</numeroIdentification>
+            <designation>Man 14.192 F VD5555</designation>
+            <description>Man 14.192 F VD5555 ... à spécifier</description>
+            <categorieExploitationErCode>1</categorieExploitationErCode>
+            <numPlaque>BLANCHE</numPlaque>
+            <typePermis>C (> 3.5 T)</typePermis>
+            <statut>En service</statut>
+        </engin>
+        <engin>
+            <lienPhoto>/engin/photo2.png</lienPhoto>
+            <entiteCode>9</entiteCode>
+            <localisationSecteurCodeEntSect>6</localisationSecteurCodeEntSect>
+            <numeroIdentification>2</numeroIdentification>
+            <designation>Toyota Land Cruiser Bj71 VD121671</designation>
+            <description>Toyota Land Cruiser Bj71 VD121671 ... à spécifier</description>
+            <categorieExploitationErCode>1</categorieExploitationErCode>
+            <numPlaque>BLANCHE</numPlaque>
+            <typePermis>C (> 3.5 T)</typePermis>
+            <statut>En service</statut>
+        </engin>
+        <engin>
+            <lienPhoto>/engin/photo3.png</lienPhoto>
+            <entiteCode>8</entiteCode>
+            <localisationSecteurCodeEntSect>5</localisationSecteurCodeEntSect>
+            <numeroIdentification>3</numeroIdentification>
+            <designation>Man 14.192 F VD5555</designation>
+            <description>Man 14.192 F VD5555 ... à spécifier</description>
+            <categorieExploitationErCode>1</categorieExploitationErCode>
+            <numPlaque>BLANCHE</numPlaque>
+            <typePermis>C (> 3.5 T)</typePermis>
+            <statut>En service</statut>
+        </engin>
+    </listeEngins>
+</zgenDGMRvehicleReturn>
