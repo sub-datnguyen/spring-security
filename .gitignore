@@ -26,3 +26,4 @@ obj/
 dotnet/04-dotnet-Nhibernate/NHibernateExercises/.vs/NHibernateExercises/v16/.suo
 node_modules/
 .vs
+/java/spring-framework/06-spring-boot-dependencies/app/back/service/transaction-logs/
