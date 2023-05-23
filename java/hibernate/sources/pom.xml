@@ -8,11 +8,12 @@
   <name>hibernate-boostup-program</name>
   <description>ELCA Boost up program - Hibernate</description>
   <properties>
-    <java.version>16</java.version>
+    <java.version>17</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <spring-boot.version>2.5.3</spring-boot.version>
     <h2-database.version>1.4.200</h2-database.version>
     <lombok.version>1.18.20</lombok.version>
-    <hibernate.version>5.5.5.Final</hibernate.version>
+    <hibernate.version>5.6.15.Final</hibernate.version>
     <hibernate-validator.version>7.0.1.Final</hibernate-validator.version>
     <javax-validation-api.version>2.0.1.Final</javax-validation-api.version>
     <query-dsl.version>5.0.0</query-dsl.version>
